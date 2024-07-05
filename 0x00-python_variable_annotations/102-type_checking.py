@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """py code"""
 
-from typing import List, Tuple, Any
+from typing import Tuple, List
 
 
-def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> List[Any]:
-    zoomed_in: List[Any] = [
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
+    """zoom_array function"""
+    zoomed_in: List = [
         item for item in lst
         for i in range(factor)
     ]
