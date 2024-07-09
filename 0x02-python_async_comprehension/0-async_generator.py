@@ -6,7 +6,7 @@ import random
 from typing import Generator
 
 
-async def async_generator() -> Generator[float, None]:
+async def async_generator() -> Generator[float, None, None]:
     """async_generator function"""
     for i in range(10):
         yield random.uniform(0, 10)
