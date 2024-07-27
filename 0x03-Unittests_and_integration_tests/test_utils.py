@@ -2,9 +2,18 @@
 """unittest is a module for testing"""
 
 import unittest
+from unittest.mock import patch, Mock
 from parameterized import parameterized
 from utils import access_nested_map, get_json
-from unittest.mock import patch
+from typing import (
+    Mapping,
+    Sequence,
+    Any,
+    Dict,
+    Callable,
+    Tuple,
+    Union
+)
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -18,8 +27,11 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
     def test_access_nested_map(
-        self, nested_map, path, expected_value
-    ):
+        self,
+        nested_map: Dict,
+        path: Tuple[str],
+        expected_value: Union[Dict, int],
+    ) -> None:
         """test_access_nested_map function"""
         self.assertEqual(
             access_nested_map(nested_map, path),
@@ -31,8 +43,11 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), KeyError),
     ])
     def test_access_nested_map_exception(
-        self, nested_map, path, exception
-    ):
+        self,
+        nested_map: Dict,
+        path: Tuple[str],
+        exception: Exception,
+    ) -> None:
         """test_access_nested_map_exception function"""
         with self.assertRaises(exception):
             access_nested_map(nested_map, path)
@@ -44,7 +59,11 @@ class TestGetJson(unittest.TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False}),
     ])
-    def test_get_json(self, url, test_pay):
+    def test_get_json(
+        self,
+        url: str,
+        test_pay: Dict,
+    ) -> None:
         """test_get_json function"""
         with patch("requests.get") as mock_get:
             mock_get.return_value.json.return_value = test_pay
