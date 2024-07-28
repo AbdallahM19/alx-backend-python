@@ -17,11 +17,11 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {'login': "abc"}),
     ])
     @patch("client.get_json")
-    def test_org(
-        self,
-        org: str,
-        params: Dict,
-        mock_get_json: MagicMock,
+    def test_org(\
+        self,\
+        org: str,\
+        params: Dict,\
+        mock_get_json: MagicMock,\
     ) -> None:
         """test_org"""
         mock_get_json.return_value = MagicMock(return_value=params)
@@ -108,8 +108,8 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "bsd-3-clause"}}, "bsd-3-clause", True),
         ({"license": {"key": "bsl-1.0"}}, "bsd-3-clause", False),
     ])
-    def test_has_license(
-        self, licence_dict: Dict, name: str, expected: bool
+    def test_has_license(\
+        self, licence_dict: Dict, name: str, expected: bool\
     ) -> None:
         """Test that the client has a license."""
         get_org_client = GithubOrgClient("google")
@@ -117,7 +117,7 @@ class TestGithubOrgClient(unittest.TestCase):
             licence_dict, name
         )
         self.assertEqual(get_org_licence, expected)
-        # print(get_org_licence == expected)
+        # print(get_org_licence == expected, expected)
 
 
 @parameterized_class([{
