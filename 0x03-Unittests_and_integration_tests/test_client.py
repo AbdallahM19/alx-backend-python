@@ -52,44 +52,36 @@ class TestGithubOrgClient(unittest.TestCase):
             "repos_url": "https://api.github.com/users/google/repos",
             "repos": [
                 {
-                    "id": 460600860,
-                    "name": "allstar",
-                    "full_name": "google/allstar",
+                    "id": 7697149,
+                    "name": "episodes.dart",
                     "private": False,
                     "owner": {
                         "login": "google",
                         "id": 1342004,
-                        "url": "https://api.github.com/users/google",
                     },
                     "fork": False,
-                    "url": "https://api.github.com/repos/google/.allstar",
-                    "created_at": "2022-02-17T20:40:32Z",
-                    "updated_at": "2024-06-17T11:54:24Z",
+                    "url": "https://api.github.com/repos/google/episodes.dart",
+                    "created_at": "2013-01-19T00:31:37Z",
+                    "updated_at": "2019-09-23T11:53:58Z",
                     "has_issues": True,
-                    "has_projects": True,
-                    "has_downloads": True,
-                    "forks": 2,
-                    "default_branch": "main"
+                    "forks": 22,
+                    "default_branch": "master",
                 },
                 {
-                    "id": 170908616,
-                    "name": "github",
-                    "full_name": "google/github",
+                    "id": 8566972,
+                    "name": "kratu",
                     "private": False,
                     "owner": {
                         "login": "google",
                         "id": 1342004,
-                        "url": "https://api.github.com/users/google",
                     },
                     "fork": False,
-                    "url": "https://api.github.com/repos/google/.github",
-                    "created_at": "2019-02-15T18:14:38Z",
-                    "updated_at": "2024-07-17T04:01:57Z",
+                    "url": "https://api.github.com/repos/google/kratu",
+                    "created_at": "2013-03-04T22:52:33Z",
+                    "updated_at": "2019-11-15T22:22:16Z",
                     "has_issues": True,
-                    "has_projects": False,
-                    "has_downloads": True,
-                    "forks": 250,
-                    "default_branch": "master"
+                    "forks": 32,
+                    "default_branch": "master",
                 },
             ]
         }
@@ -101,7 +93,11 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_repos.return_value = test_payload["repos_url"]
             client = GithubOrgClient("google").public_repos()
             self.assertEqual(
-                client, ["allstar", "github"]
+                client,
+                [
+                    "episodes.dart",
+                    "kratu",
+                ],
             )
             mock_repos.assert_called_once()
         mock_test.assert_called_once()
