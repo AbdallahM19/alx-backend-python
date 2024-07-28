@@ -12,13 +12,17 @@ import unittest
 
 class TestGithubOrgClient(unittest.TestCase):
     """TestGithubOrgClient class"""
-
     @parameterized.expand([
         ("google", {'login': "google"}),
         ("abc", {'login': "abc"}),
     ])
     @patch("client.get_json")
-    def test_org(self, org: str, params: Dict, mock_get_json: MagicMock) -> None:
+    def test_org(
+        self,
+        org: str,
+        params: Dict,
+        mock_get_json: MagicMock,
+    ) -> None:
         """test_org"""
         mock_get_json.return_value = MagicMock(return_value=params)
         class_test = GithubOrgClient(org)
@@ -104,11 +108,16 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "bsd-3-clause"}}, "bsd-3-clause", True),
         ({"license": {"key": "bsl-1.0"}}, "bsd-3-clause", False),
     ])
-    def test_has_license(self, licence_dict: Dict, name: str, expected: bool) -> None:
+    def test_has_license(
+        self, licence_dict: Dict, name: str, expected: bool
+    ) -> None:
         """Test that the client has a license."""
         get_org_client = GithubOrgClient("google")
-        get_org_licence = get_org_client.has_license(licence_dict, name)
+        get_org_licence = get_org_client.has_license(
+            licence_dict, name
+        )
         self.assertEqual(get_org_licence, expected)
+        # print(get_org_licence == expected)
 
 
 @parameterized_class([{
@@ -119,7 +128,6 @@ class TestGithubOrgClient(unittest.TestCase):
 }])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Test the integration of the GithubOrgClient class."""
-
     @classmethod
     def setUpClass(cls) -> None:
         """Set up the test class."""
@@ -143,12 +151,20 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def test_public_repos(self) -> None:
         """public_repos test method"""
         client = GithubOrgClient("google").public_repos()
-        self.assertEqual(client, self.expected_repos)
+        self.assertEqual(
+            client,
+            self.expected_repos,
+        )
 
     def test_public_repos_with_license(self) -> None:
         """public_repos_with_license test method"""
-        client = GithubOrgClient("google").public_repos(license="apache-2.0")
-        self.assertEqual(client, self.apache2_repos)
+        client = GithubOrgClient("google").public_repos(
+                license="apache-2.0"
+            )
+        self.assertEqual(
+            client,
+            self.apache2_repos,
+        )
 
     @classmethod
     def tearDownClass(cls) -> None:
