@@ -105,16 +105,15 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_test.assert_called_once()
 
     @parameterized.expand([
-        ({"license": {"key": "my_license"}}, "my_license", True),
-        ({"license": {"key": "other_license"}}, "my_license", False),
+        ({"license": {"key": "apache-2.0"}}, "apache-2.0", True),
+        ({"license": {"key": "other"}}, "apache-2.0", False),
     ])
     def test_has_license(
-        self,
-        licence_dict: Dict,
-        name: str,
-        expected: bool
+        self, licence_dict: Dict, name: str, expected: bool
     ) -> None:
         """Test that the client has a license."""
         get_org_client = GithubOrgClient("google")
-        get_org_licence = get_org_client.has_license(licence_dict, name)
+        get_org_licence = get_org_client.has_license(
+            licence_dict, name
+        )
         self.assertEqual(get_org_licence, expected)
