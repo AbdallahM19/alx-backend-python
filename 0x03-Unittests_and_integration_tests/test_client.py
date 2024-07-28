@@ -131,31 +131,22 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
         def get_payload(url):
             if url in route_payload:
-                return Mock(
-                    **{'json.return_value': route_payload[url]}
-                )
+                return Mock(**{'json.return_value': route_payload[url]})  # noqa: E501
             return HTTPError
 
-        cls.get_patcher = patch(
-            "requests.get", side_effect=get_payload
-        )
+        cls.get_patcher = patch("requests.get", side_effect=get_payload)
         cls.get_patcher.start()
 
     def test_public_repos(self) -> None:
         """public_repos test method"""
         client = GithubOrgClient("google").public_repos()
-        self.assertEqual(
-            client,
-            self.expected_repos,
-        )
+        self.assertEqual(client, self.expected_repos,)
 
     def test_public_repos_with_license(self) -> None:
         """public_repos_with_license test method"""
-        client = GithubOrgClient("google").public_repos(
-                license="apache-2.0"
-            )
+        client = GithubOrgClient("google")
         self.assertEqual(
-            client,
+            client.public_repos(license="apache-2.0"),
             self.apache2_repos,
         )
 
